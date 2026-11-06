@@ -201,7 +201,7 @@ export const maintenanceItems: MaintenanceItem[] = [
     estimatedCostEur: 400,
     estimatedCostMinEur: 0,
     estimatedCostMaxEur: 800,
-    evidenceLevel: 'user_report',
+    evidenceLevel: 'single_report',
     sourcesIds: ['mg4-user-reports'],
     notes: 'Yksittäisiä raportteja ohjelmistohäiriöistä ja infotainment-ongelmista. OTA-päivitykset voivat korjata osan. Ei laajaa vahvistusta.',
   },

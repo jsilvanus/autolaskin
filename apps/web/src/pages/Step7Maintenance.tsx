@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import type { MaintenanceForecast, ForecastEvent, MaintenanceNature } from '@autolaskin/domain'
+import type { MaintenanceForecast, ForecastEvent, MaintenanceNature, VehicleVersion } from '@autolaskin/domain'
 import { useCalculator } from '../store/calculatorStore.js'
+import LifetimeCostChart from '../components/LifetimeCostChart.js'
 
 const NATURE_LABELS: Record<MaintenanceNature, string> = {
   scheduled: 'Määräaikaishuollot',
@@ -64,6 +65,7 @@ export default function Step7Maintenance() {
   const forecast = state.maintenanceForecast
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [vehicle, setVehicle] = useState<VehicleVersion | null>(null)
 
   const p = state.drivingProfile
 
@@ -78,10 +80,16 @@ export default function Step7Maintenance() {
         currentOdometerKm: String(p.currentOdometerKm ?? 0),
         winterDriving: String(p.winterDriving),
       })
-      const res = await fetch(`/api/v1/vehicles/${vehicleId}/forecast?${params}`)
-      if (!res.ok) throw new Error('Ennusteen lataus epäonnistui')
-      const data = await res.json() as MaintenanceForecast
+      const [forecastRes, vehicleRes] = await Promise.all([
+        fetch(`/api/v1/vehicles/${vehicleId}/forecast?${params}`),
+        fetch(`/api/v1/vehicles/${vehicleId}`),
+      ])
+      if (!forecastRes.ok) throw new Error('Ennusteen lataus epäonnistui')
+      if (!vehicleRes.ok) throw new Error('Ajoneuvon tietojen lataus epäonnistui')
+      const data = await forecastRes.json() as MaintenanceForecast
+      const veh = await vehicleRes.json() as VehicleVersion
       dispatch({ type: 'SET_MAINTENANCE_FORECAST', forecast: data })
+      setVehicle(veh)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Virhe')
     } finally {
@@ -130,6 +138,17 @@ export default function Step7Maintenance() {
         Vuosikilometrit: <strong>{p.annualKm.toLocaleString('fi-FI')} km</strong> |
         Ennuste päättyy: <strong>{forecast.forecastEndDate}</strong> ({forecast.forecastEndKm.toLocaleString('fi-FI')} km)
       </p>
+
+      {vehicle && (
+        <div style={{ marginBottom: '28px' }}>
+          <LifetimeCostChart
+            vehicle={vehicle}
+            forecast={forecast}
+            annualKm={p.annualKm}
+            ownershipYears={p.ownershipYears}
+          />
+        </div>
+      )}
 
       <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '20px' }}>
         <div style={{ padding: '12px 20px', background: '#e8f4fd', borderRadius: '6px', minWidth: '150px' }}>
