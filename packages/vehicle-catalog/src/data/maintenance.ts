@@ -7,6 +7,10 @@ const ALL_EV_IDS = [
   'skoda-enyaq-iv80-2022',
   'hyundai-ioniq6-se-2023',
   'polestar-2-lr-2023',
+  'kia-ev6-rwd-2022',
+  'nissan-leaf-40kwh-2022',
+  'bmw-ix3-2022',
+  'mg4-standard-2023',
 ]
 
 export const maintenanceItems: MaintenanceItem[] = [
@@ -118,6 +122,7 @@ export const maintenanceItems: MaintenanceItem[] = [
       'volkswagen-id4-pro-2022',
       'skoda-enyaq-iv80-2022',
       'polestar-2-lr-2023',
+      'kia-ev6-rwd-2022',
     ],
     nature: 'known_fault',
     label: 'Lämpöpumpun vika',
@@ -139,5 +144,82 @@ export const maintenanceItems: MaintenanceItem[] = [
     evidenceLevel: 'repeated_observation',
     sourcesIds: ['12v-battery-ev-reports'],
     notes: 'Toistuvasti raportoitu ennenaikainen vikaantuminen. Voi aiheuttaa käynnistysongelmia.',
+  },
+
+  // BMW iX3 specific: longer scheduled service interval
+  {
+    id: 'bmw-ix3-service',
+    vehicleVersionIds: ['bmw-ix3-2022'],
+    nature: 'scheduled',
+    label: 'BMW iX3 määräaikaishuolto',
+    intervalKm: 30000,
+    intervalMonths: 24,
+    firstAtKm: 30000,
+    firstAtMonths: 24,
+    estimatedCostEur: 350,
+    estimatedCostMinEur: 250,
+    estimatedCostMaxEur: 500,
+    sourcesIds: ['bmw-ix3-official'],
+    notes: 'BMW:n huoltoväli on 30 000 km tai 2 vuotta. Hinta korkeampi merkkikorjaamolla.',
+  },
+
+  // Nissan Leaf battery degradation risk (passive thermal management)
+  {
+    id: 'nissan-leaf-battery-degradation',
+    vehicleVersionIds: ['nissan-leaf-40kwh-2022'],
+    nature: 'known_fault',
+    label: 'Nissan Leaf akun kapasiteetin heikkeneminen',
+    estimatedCostEur: 5000,
+    estimatedCostMinEur: 3000,
+    estimatedCostMaxEur: 8000,
+    evidenceLevel: 'repeated_observation',
+    sourcesIds: ['nissan-leaf-battery-reports'],
+    notes: 'Passiivinen akkujen lämpöhallinta altistaa akun nopeammalle kapasiteettihäviölle kuumissa olosuhteissa tai tiheässä pikalatauksessa. Suomen viileässä ilmastossa riski pienempi. Akkutakuu 8 v / 160 000 km, kapasiteettitakuu 9 pykälää / 12:sta.',
+  },
+
+  // Nissan Leaf CHAdeMO charger wear
+  {
+    id: 'nissan-leaf-chademo-charger',
+    vehicleVersionIds: ['nissan-leaf-40kwh-2022'],
+    nature: 'wear_part',
+    label: 'CHAdeMO-latausliitin ja -laturi (kuluminen)',
+    intervalKm: 100000,
+    firstAtKm: 80000,
+    estimatedCostEur: 600,
+    estimatedCostMinEur: 300,
+    estimatedCostMaxEur: 1000,
+    sourcesIds: ['nissan-leaf-battery-reports'],
+    notes: 'CHAdeMO-standardi on harvinaistunut. Liitin ja laturi voivat kulua tiheässä pikalatauskäytössä.',
+  },
+
+  // MG4 software/electronics known issues
+  {
+    id: 'mg4-software-fault',
+    vehicleVersionIds: ['mg4-standard-2023'],
+    nature: 'known_fault',
+    label: 'MG4 ohjelmisto- ja elektroniikkaviat',
+    estimatedCostEur: 400,
+    estimatedCostMinEur: 0,
+    estimatedCostMaxEur: 800,
+    evidenceLevel: 'user_report',
+    sourcesIds: ['mg4-user-reports'],
+    notes: 'Yksittäisiä raportteja ohjelmistohäiriöistä ja infotainment-ongelmista. OTA-päivitykset voivat korjata osan. Ei laajaa vahvistusta.',
+  },
+
+  // Kia EV6 service
+  {
+    id: 'kia-ev6-service',
+    vehicleVersionIds: ['kia-ev6-rwd-2022'],
+    nature: 'scheduled',
+    label: 'Kia EV6 määräaikaishuolto',
+    intervalKm: 15000,
+    intervalMonths: 12,
+    firstAtKm: 15000,
+    firstAtMonths: 12,
+    estimatedCostEur: 180,
+    estimatedCostMinEur: 120,
+    estimatedCostMaxEur: 280,
+    sourcesIds: ['kia-ev6-official'],
+    notes: 'Kia suosittelee 15 000 km tai 12 kk huoltoväliä. Sisältää ilmansuodattimet, jarrunesteen tarkistuksen ja muut tarkastukset.',
   },
 ]
