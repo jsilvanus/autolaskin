@@ -92,6 +92,10 @@ export interface VehicleVersion {
     wheelbaseMm?: number; cargoLitres?: number; clearanceMm?: number
   }
   seatsMax?: number
+  // Per-year depreciation as % of original purchase price lost each year.
+  // E.g. [22, 14, 12, 10, 8] means 22% lost in year 1, 14% in year 2, etc.
+  // The last value is repeated if ownershipYears exceeds the array length.
+  depreciationRatesPercent?: number[]
   sourcesIds: string[]
   notes?: string
 }
