@@ -1,0 +1,12 @@
+{
+  "name": "autolaskin",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "dev": "pnpm --parallel -r dev"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

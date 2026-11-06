@@ -1,0 +1,298 @@
+[
+  {
+    "id": "tesla-model3-sr-2023",
+    "make": "Tesla",
+    "model": "Model 3",
+    "generation": "RWD (Standard Range)",
+    "years": [
+      2021,
+      2022,
+      2023
+    ],
+    "bodyStyle": "sedan",
+    "powertrain": "ev",
+    "battery": {
+      "grossKwh": 62,
+      "netKwh": 60,
+      "warrantyKm": 192000,
+      "warrantyYears": 8
+    },
+    "range": {
+      "wltpKm": 491,
+      "estimatedSummerKm": 420,
+      "estimatedWinterKm": 319,
+      "consumptionWltpKwhPer100km": 14.9
+    },
+    "charging": {
+      "acMaxKw": 11,
+      "dcMaxKw": 170,
+      "connectorType": "CCS2/Tesla"
+    },
+    "motorConfig": "RWD",
+    "towing": {
+      "maxKg": 0,
+      "hasTowHook": false
+    },
+    "dimensions": {
+      "lengthMm": 4694,
+      "widthMm": 1849,
+      "heightMm": 1443,
+      "wheelbaseMm": 2875,
+      "cargoLitres": 682,
+      "clearanceMm": 140
+    },
+    "seatsMax": 5,
+    "sourcesIds": [
+      "tesla-model3-official",
+      "app-estimate-winter"
+    ],
+    "notes": "Talviajomatka on sovelluksen arvio (65 % WLTP). Ei virallinen arvo."
+  },
+  {
+    "id": "tesla-model-y-lr-2023",
+    "make": "Tesla",
+    "model": "Model Y",
+    "generation": "Long Range AWD",
+    "years": [
+      2022,
+      2023,
+      2024
+    ],
+    "bodyStyle": "suv",
+    "powertrain": "ev",
+    "battery": {
+      "grossKwh": 82,
+      "netKwh": 75,
+      "warrantyKm": 192000,
+      "warrantyYears": 8
+    },
+    "range": {
+      "wltpKm": 533,
+      "estimatedSummerKm": 460,
+      "estimatedWinterKm": 346,
+      "consumptionWltpKwhPer100km": 16.9
+    },
+    "charging": {
+      "acMaxKw": 11,
+      "dcMaxKw": 250,
+      "connectorType": "CCS2/Tesla"
+    },
+    "motorConfig": "AWD",
+    "towing": {
+      "maxKg": 1600,
+      "hasTowHook": true
+    },
+    "dimensions": {
+      "lengthMm": 4751,
+      "widthMm": 1921,
+      "heightMm": 1624,
+      "wheelbaseMm": 2890,
+      "cargoLitres": 854,
+      "clearanceMm": 167
+    },
+    "seatsMax": 7,
+    "sourcesIds": [
+      "tesla-modely-official",
+      "app-estimate-winter"
+    ],
+    "notes": "Talviajomatka on sovelluksen arvio (65 % WLTP). 7-istuinversio saatavilla lisämaksusta."
+  },
+  {
+    "id": "volkswagen-id4-pro-2022",
+    "make": "Volkswagen",
+    "model": "ID.4",
+    "generation": "Pro Performance",
+    "years": [
+      2022,
+      2023,
+      2024
+    ],
+    "bodyStyle": "suv",
+    "powertrain": "ev",
+    "battery": {
+      "grossKwh": 82,
+      "netKwh": 77,
+      "warrantyKm": 160000,
+      "warrantyYears": 8
+    },
+    "range": {
+      "wltpKm": 522,
+      "estimatedSummerKm": 440,
+      "estimatedWinterKm": 339,
+      "consumptionWltpKwhPer100km": 16.7
+    },
+    "charging": {
+      "acMaxKw": 11,
+      "dcMaxKw": 135,
+      "connectorType": "CCS2"
+    },
+    "motorConfig": "RWD",
+    "towing": {
+      "maxKg": 1200,
+      "hasTowHook": true
+    },
+    "dimensions": {
+      "lengthMm": 4584,
+      "widthMm": 1852,
+      "heightMm": 1640,
+      "wheelbaseMm": 2771,
+      "cargoLitres": 543,
+      "clearanceMm": 163
+    },
+    "seatsMax": 5,
+    "sourcesIds": [
+      "vw-id4-official",
+      "app-estimate-winter"
+    ],
+    "notes": "Talviajomatka on sovelluksen arvio (65 % WLTP)."
+  },
+  {
+    "id": "skoda-enyaq-iv80-2022",
+    "make": "Škoda",
+    "model": "Enyaq iV 80",
+    "generation": "iV 80",
+    "years": [
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "bodyStyle": "suv",
+    "powertrain": "ev",
+    "battery": {
+      "grossKwh": 82,
+      "netKwh": 77,
+      "warrantyKm": 160000,
+      "warrantyYears": 8
+    },
+    "range": {
+      "wltpKm": 510,
+      "estimatedSummerKm": 430,
+      "estimatedWinterKm": 332,
+      "consumptionWltpKwhPer100km": 17
+    },
+    "charging": {
+      "acMaxKw": 11,
+      "dcMaxKw": 135,
+      "connectorType": "CCS2"
+    },
+    "motorConfig": "RWD",
+    "towing": {
+      "maxKg": 1200,
+      "hasTowHook": true
+    },
+    "dimensions": {
+      "lengthMm": 4649,
+      "widthMm": 1879,
+      "heightMm": 1616,
+      "wheelbaseMm": 2765,
+      "cargoLitres": 585,
+      "clearanceMm": 189
+    },
+    "seatsMax": 5,
+    "sourcesIds": [
+      "skoda-enyaq-official",
+      "app-estimate-winter"
+    ],
+    "notes": "Talviajomatka on sovelluksen arvio (65 % WLTP). Jakaa MEB-alustan VW ID.4:n kanssa."
+  },
+  {
+    "id": "hyundai-ioniq6-se-2023",
+    "make": "Hyundai",
+    "model": "IONIQ 6",
+    "generation": "RWD Standard",
+    "years": [
+      2022,
+      2023,
+      2024
+    ],
+    "bodyStyle": "sedan",
+    "powertrain": "ev",
+    "battery": {
+      "grossKwh": 77.4,
+      "netKwh": 74,
+      "warrantyKm": 200000,
+      "warrantyYears": 8
+    },
+    "range": {
+      "wltpKm": 614,
+      "estimatedSummerKm": 520,
+      "estimatedWinterKm": 399,
+      "consumptionWltpKwhPer100km": 14.3
+    },
+    "charging": {
+      "acMaxKw": 11,
+      "dcMaxKw": 220,
+      "connectorType": "CCS2"
+    },
+    "motorConfig": "RWD",
+    "towing": {
+      "maxKg": 750,
+      "hasTowHook": false
+    },
+    "dimensions": {
+      "lengthMm": 4855,
+      "widthMm": 1880,
+      "heightMm": 1495,
+      "wheelbaseMm": 2950,
+      "cargoLitres": 401,
+      "clearanceMm": 143
+    },
+    "seatsMax": 5,
+    "sourcesIds": [
+      "hyundai-ioniq6-official",
+      "app-estimate-winter"
+    ],
+    "notes": "Talviajomatka on sovelluksen arvio (65 % WLTP). Pitkä akseliväli tarjoaa hyvän tilankäytön."
+  },
+  {
+    "id": "polestar-2-lr-2023",
+    "make": "Polestar",
+    "model": "Polestar 2",
+    "generation": "Long range Single motor",
+    "years": [
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "bodyStyle": "fastback",
+    "powertrain": "ev",
+    "battery": {
+      "grossKwh": 82,
+      "netKwh": 78,
+      "warrantyKm": 160000,
+      "warrantyYears": 8
+    },
+    "range": {
+      "wltpKm": 551,
+      "estimatedSummerKm": 470,
+      "estimatedWinterKm": 358,
+      "consumptionWltpKwhPer100km": 17
+    },
+    "charging": {
+      "acMaxKw": 11,
+      "dcMaxKw": 205,
+      "connectorType": "CCS2"
+    },
+    "motorConfig": "RWD",
+    "towing": {
+      "maxKg": 0,
+      "hasTowHook": false
+    },
+    "dimensions": {
+      "lengthMm": 4606,
+      "widthMm": 1859,
+      "heightMm": 1479,
+      "wheelbaseMm": 2735,
+      "cargoLitres": 405,
+      "clearanceMm": 151
+    },
+    "seatsMax": 5,
+    "sourcesIds": [
+      "polestar2-official",
+      "app-estimate-winter"
+    ],
+    "notes": "Talviajomatka on sovelluksen arvio (65 % WLTP). Hinaajakoukku saatavilla lisävarusteena tietyillä markkinoilla."
+  }
+]
