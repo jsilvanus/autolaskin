@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useCalculator } from '../store/calculatorStore.js'
+import { useCalculator, type CalculatorState, defaultDrivingProfile } from '../store/calculatorStore.js'
 import type { Calculation } from '@autolaskin/domain'
 
 interface Props {
@@ -74,6 +74,11 @@ export default function PinDialog({ onClose }: Props) {
           newCar: entry.data.newCar,
           savings: entry.data.savings,
           financing: entry.data.financing,
+          drivingProfile: (entry.data as { drivingProfile?: CalculatorState['drivingProfile'] }).drivingProfile ?? defaultDrivingProfile(),
+          selectionCriteria: (entry.data as { selectionCriteria?: CalculatorState['selectionCriteria'] }).selectionCriteria ?? [],
+          selectedVehicleVersionId: (entry.data as { selectedVehicleVersionId?: string | null }).selectedVehicleVersionId ?? null,
+          suitabilityResult: null,
+          maintenanceForecast: null,
         },
       })
       setStatus('Ladattu!')

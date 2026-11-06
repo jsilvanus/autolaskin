@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, type Dispatch } from 'react'
-import type { CellMap } from '@autolaskin/domain'
+import type { CellMap, DrivingProfile, SelectionCriterion, SuitabilityResult, MaintenanceForecast } from '@autolaskin/domain'
 import {
   createCurrentCarCells,
   createNewCarCells,
@@ -16,6 +16,11 @@ export interface CalculatorState {
   financing: CellMap
   computed: CellMap
   step: number
+  drivingProfile: DrivingProfile
+  selectionCriteria: SelectionCriterion[]
+  selectedVehicleVersionId: string | null
+  suitabilityResult: SuitabilityResult | null
+  maintenanceForecast: MaintenanceForecast | null
 }
 
 type Action =
@@ -23,8 +28,13 @@ type Action =
   | { type: 'SET_NAME'; name: string }
   | { type: 'SET_STEP'; step: number }
   | { type: 'LOAD_STATE'; state: Omit<CalculatorState, 'computed' | 'step'> }
+  | { type: 'SET_DRIVING_PROFILE'; profile: DrivingProfile }
+  | { type: 'SET_SELECTION_CRITERIA'; criteria: SelectionCriterion[] }
+  | { type: 'SET_SELECTED_VEHICLE'; vehicleVersionId: string | null }
+  | { type: 'SET_SUITABILITY_RESULT'; result: SuitabilityResult | null }
+  | { type: 'SET_MAINTENANCE_FORECAST'; forecast: MaintenanceForecast | null }
 
-function buildAllCells(state: Omit<CalculatorState, 'computed' | 'step'>): CellMap {
+function buildAllCells(state: Pick<CalculatorState, 'currentCar' | 'newCar' | 'savings' | 'financing'>): CellMap {
   return {
     ...state.currentCar,
     ...state.newCar,
@@ -38,6 +48,20 @@ function recompute(state: CalculatorState): CalculatorState {
   return { ...state, computed }
 }
 
+export function defaultDrivingProfile(): DrivingProfile {
+  return {
+    annualKm: 15000,
+    typicalDailyKm: 40,
+    drivingStyle: 'mixed',
+    winterDriving: true,
+    homeCharging: true,
+    workCharging: false,
+    publicCharging: false,
+    ownershipYears: 5,
+    currentOdometerKm: 0,
+  }
+}
+
 function initialState(): CalculatorState {
   const currentCar = createCurrentCarCells()
   const newCar = createNewCarCells('ev')
@@ -45,7 +69,16 @@ function initialState(): CalculatorState {
   const financing = createFinancingCells()
   const base = { name: 'Uusi laskelma', currentCar, newCar, savings, financing }
   const computed = computeAllCells(buildAllCells(base))
-  return { ...base, computed, step: 1 }
+  return {
+    ...base,
+    computed,
+    step: 1,
+    drivingProfile: defaultDrivingProfile(),
+    selectionCriteria: [],
+    selectedVehicleVersionId: null,
+    suitabilityResult: null,
+    maintenanceForecast: null,
+  }
 }
 
 function reducer(state: CalculatorState, action: Action): CalculatorState {
@@ -72,6 +105,16 @@ function reducer(state: CalculatorState, action: Action): CalculatorState {
       const loaded = { ...state, ...action.state }
       return recompute(loaded)
     }
+    case 'SET_DRIVING_PROFILE':
+      return { ...state, drivingProfile: action.profile }
+    case 'SET_SELECTION_CRITERIA':
+      return { ...state, selectionCriteria: action.criteria }
+    case 'SET_SELECTED_VEHICLE':
+      return { ...state, selectedVehicleVersionId: action.vehicleVersionId, suitabilityResult: null, maintenanceForecast: null }
+    case 'SET_SUITABILITY_RESULT':
+      return { ...state, suitabilityResult: action.result }
+    case 'SET_MAINTENANCE_FORECAST':
+      return { ...state, maintenanceForecast: action.forecast }
   }
 }
 

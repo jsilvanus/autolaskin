@@ -17,6 +17,9 @@ importers:
       '@autolaskin/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@autolaskin/vehicle-catalog':
+        specifier: workspace:*
+        version: link:../../packages/vehicle-catalog
       express:
         specifier: ^4.19.2
         version: 4.22.3
@@ -45,6 +48,9 @@ importers:
       '@autolaskin/formula-engine':
         specifier: workspace:*
         version: link:../../packages/formula-engine
+      '@autolaskin/vehicle-catalog':
+        specifier: workspace:*
+        version: link:../../packages/vehicle-catalog
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -101,6 +107,19 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^1.6.0
+        version: 1.6.1(@types/node@20.19.43)
+
+  packages/vehicle-catalog:
+    dependencies:
+      '@autolaskin/domain':
+        specifier: workspace:*
+        version: link:../domain
+    devDependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^1.0.0
         version: 1.6.1(@types/node@20.19.43)
 
 packages:

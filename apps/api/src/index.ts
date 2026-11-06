@@ -2,10 +2,14 @@ import express, { type Express, Request, Response, NextFunction } from 'express'
 import { promises as fs } from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import type { StorageFile, StorageEntry, Calculation } from '@autolaskin/domain'
+import type { StorageFile, StorageEntry, Calculation, VehicleVersion, MaintenanceItem, SourceRef, DrivingProfile } from '@autolaskin/domain'
+import { computeMaintenanceForecast } from '@autolaskin/vehicle-catalog'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const DATA_FILE = path.resolve(__dirname, '../data/calculations.json')
+const VEHICLES_FILE = path.resolve(__dirname, '../data/vehicle-catalog.json')
+const MAINTENANCE_FILE = path.resolve(__dirname, '../data/maintenance-data.json')
+const SOURCES_FILE = path.resolve(__dirname, '../data/source-registry.json')
 const PIN_RE = /^\d{6,8}$/
 
 const app: Express = express()
@@ -30,6 +34,24 @@ async function writeStorage(data: StorageFile): Promise<void> {
   const tmp = DATA_FILE + '.tmp'
   await fs.writeFile(tmp, JSON.stringify(data, null, 2), 'utf-8')
   await fs.rename(tmp, DATA_FILE)
+}
+
+// Vehicle catalog helpers
+let _vehicles: VehicleVersion[] | null = null
+let _maintenanceItems: MaintenanceItem[] | null = null
+
+async function getVehicles(): Promise<VehicleVersion[]> {
+  if (_vehicles) return _vehicles
+  const raw = await fs.readFile(VEHICLES_FILE, 'utf-8')
+  _vehicles = JSON.parse(raw) as VehicleVersion[]
+  return _vehicles
+}
+
+async function getMaintenanceItems(): Promise<MaintenanceItem[]> {
+  if (_maintenanceItems) return _maintenanceItems
+  const raw = await fs.readFile(MAINTENANCE_FILE, 'utf-8')
+  _maintenanceItems = JSON.parse(raw) as MaintenanceItem[]
+  return _maintenanceItems
 }
 
 // GET /api/v1/calculations/:pin
@@ -92,6 +114,79 @@ app.delete('/api/v1/calculations/:pin/data', async (req: Request, res: Response)
   }
   await writeStorage(storage)
   res.json({ message: 'Data cleared', pin })
+})
+
+// GET /api/v1/vehicles — list all vehicle versions (summary)
+app.get('/api/v1/vehicles', async (_req: Request, res: Response) => {
+  const vehicles = await getVehicles()
+  const summary = vehicles.map(v => ({
+    id: v.id,
+    make: v.make,
+    model: v.model,
+    generation: v.generation,
+    years: v.years,
+    powertrain: v.powertrain,
+    bodyStyle: v.bodyStyle,
+    wltpKm: v.range?.wltpKm,
+    estimatedWinterKm: v.range?.estimatedWinterKm,
+    netKwh: v.battery?.netKwh,
+  }))
+  res.json(summary)
+})
+
+// GET /api/v1/vehicles/:id — full vehicle version details
+app.get('/api/v1/vehicles/:id', async (req: Request, res: Response) => {
+  const vehicles = await getVehicles()
+  const vehicle = vehicles.find(v => v.id === req.params['id'])
+  if (!vehicle) {
+    res.status(404).json({ error: 'Vehicle not found' })
+    return
+  }
+  res.json(vehicle)
+})
+
+// GET /api/v1/vehicles/:id/maintenance — maintenance items for this vehicle
+app.get('/api/v1/vehicles/:id/maintenance', async (req: Request, res: Response) => {
+  const vehicles = await getVehicles()
+  const vehicle = vehicles.find(v => v.id === req.params['id'])
+  if (!vehicle) {
+    res.status(404).json({ error: 'Vehicle not found' })
+    return
+  }
+  const items = await getMaintenanceItems()
+  const applicable = items.filter(item => item.vehicleVersionIds.includes(vehicle.id))
+  res.json(applicable)
+})
+
+// GET /api/v1/vehicles/:id/forecast
+app.get('/api/v1/vehicles/:id/forecast', async (req: Request, res: Response) => {
+  const vehicles = await getVehicles()
+  const vehicle = vehicles.find(v => v.id === req.params['id'])
+  if (!vehicle) {
+    res.status(404).json({ error: 'Vehicle not found' })
+    return
+  }
+
+  const q = req.query
+  const annualKm = q['annualKm'] ? parseInt(q['annualKm'] as string) : 15000
+  const ownershipYears = q['ownershipYears'] ? parseInt(q['ownershipYears'] as string) : 5
+  const currentOdometerKm = q['currentOdometerKm'] ? parseInt(q['currentOdometerKm'] as string) : 0
+  const winterDriving = q['winterDriving'] !== 'false'
+
+  const profile: DrivingProfile = {
+    annualKm,
+    ownershipYears,
+    currentOdometerKm,
+    winterDriving,
+    drivingStyle: 'mixed',
+    homeCharging: true,
+    workCharging: false,
+    publicCharging: false,
+  }
+
+  const items = await getMaintenanceItems()
+  const forecast = computeMaintenanceForecast(vehicle, profile, items, 0)
+  res.json(forecast)
 })
 
 // 404 handler

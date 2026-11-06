@@ -1,0 +1,76 @@
+import type { SourceRef } from '@autolaskin/domain'
+
+export const sources: SourceRef[] = [
+  {
+    id: 'app-estimate-winter',
+    description: 'Sovelluksen arvio talviajosta: 65 % WLTP-arvoista',
+    retrievedAt: '2024-01-01',
+    reliability: 'app_estimate',
+  },
+  {
+    id: 'tesla-model3-official',
+    description: 'Tesla Model 3 viralliset tekniset tiedot (Tesla.com)',
+    url: 'https://www.tesla.com/fi_FI/model3',
+    retrievedAt: '2024-01-01',
+    reliability: 'manufacturer',
+    appliesTo: ['tesla-model3-sr-2023'],
+  },
+  {
+    id: 'tesla-modely-official',
+    description: 'Tesla Model Y viralliset tekniset tiedot (Tesla.com)',
+    url: 'https://www.tesla.com/fi_FI/modely',
+    retrievedAt: '2024-01-01',
+    reliability: 'manufacturer',
+    appliesTo: ['tesla-model-y-lr-2023'],
+  },
+  {
+    id: 'vw-id4-official',
+    description: 'Volkswagen ID.4 viralliset tekniset tiedot (volkswagen.fi)',
+    url: 'https://www.volkswagen.fi/fi/mallit/id4.html',
+    retrievedAt: '2024-01-01',
+    reliability: 'manufacturer',
+    appliesTo: ['volkswagen-id4-pro-2022'],
+  },
+  {
+    id: 'skoda-enyaq-official',
+    description: 'Škoda Enyaq iV 80 viralliset tekniset tiedot (skoda.fi)',
+    url: 'https://www.skoda.fi/mallit/enyaq-iv/',
+    retrievedAt: '2024-01-01',
+    reliability: 'manufacturer',
+    appliesTo: ['skoda-enyaq-iv80-2022'],
+  },
+  {
+    id: 'hyundai-ioniq6-official',
+    description: 'Hyundai IONIQ 6 viralliset tekniset tiedot (hyundai.fi)',
+    url: 'https://www.hyundai.fi/mallit/ioniq6/',
+    retrievedAt: '2024-01-01',
+    reliability: 'manufacturer',
+    appliesTo: ['hyundai-ioniq6-se-2023'],
+  },
+  {
+    id: 'polestar2-official',
+    description: 'Polestar 2 viralliset tekniset tiedot (polestar.com)',
+    url: 'https://www.polestar.com/fi/polestar-2/',
+    retrievedAt: '2024-01-01',
+    reliability: 'manufacturer',
+    appliesTo: ['polestar-2-lr-2023'],
+  },
+  {
+    id: 'ev-maintenance-general',
+    description: 'Sähköautojen huoltovälit – yleinen arvio lähteistä',
+    retrievedAt: '2024-01-01',
+    reliability: 'independent',
+  },
+  {
+    id: 'heat-pump-fault-reports',
+    description: 'Lämpöpumpun viat sähköautoissa – käyttäjäraportit ja tekniset foorumit',
+    retrievedAt: '2024-01-01',
+    reliability: 'user_report',
+  },
+  {
+    id: '12v-battery-ev-reports',
+    description: '12V-akun viat sähköautoissa – toistuvia havaintoja',
+    retrievedAt: '2024-01-01',
+    reliability: 'user_report',
+  },
+]

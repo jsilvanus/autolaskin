@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@autolaskin/domain": "workspace:*",
+    "@autolaskin/vehicle-catalog": "workspace:*",
     "express": "^4.19.2"
   },
   "devDependencies": {

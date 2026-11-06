@@ -11,6 +11,7 @@
     "@autolaskin/domain": "workspace:*",
     "@autolaskin/calculator": "workspace:*",
     "@autolaskin/formula-engine": "workspace:*",
+    "@autolaskin/vehicle-catalog": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
